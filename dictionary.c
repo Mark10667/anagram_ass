@@ -4,7 +4,7 @@
 //forms hash value for string s
 //this produces a starting value in the dictionary array
 unsigned hash(const char *s) {
-	unsigned hashval = 1;
+	unsigned hashval = 0;
 	//TODO - implement polynomial hashing of string s
 	// int prime_array[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101};
 	// int length = strlen(s);
