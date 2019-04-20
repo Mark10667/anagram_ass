@@ -4,14 +4,23 @@
 //forms hash value for string s
 //this produces a starting value in the dictionary array
 unsigned hash(const char *s) {
-	unsigned hashval;
+	unsigned hashval = 1;
 	//TODO - implement polynomial hashing of string s
-	
+	// int prime_array[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101};
+	// int length = strlen(s);
+	// for(int i = 0; i<length; i++){
+	// 	hashval = hashval * prime_array[s[i]-97];
+	// }
+
+	int length = strlen(s);
+	for (int i=0; i<length; i++){
+		hashval = hashval*31 + s[i];
+	}
 	return hashval ;
 }
 
 //Performs search for a key in the hashtable.
-//if the entry key is in the dictionary, it is in the list of blocks 
+//if the entry key is in the dictionary, it is in the list of blocks
 //beginning in array entry hash(key).
 //if lookup finds entry for s, it returns a pointer to the node with this key
 //if not - it returns NULL
@@ -30,18 +39,18 @@ DNode * get (DNode ** dictionary, int hash_size, const char *key) {
 DNode * set (DNode ** dictionary, int hash_size,  const char * key, const char * value) {
 	unsigned int hashval;
 	DNode *np = get (dictionary, hash_size, key);
-	
+
 	if (np == NULL) { //this is a new key
 		np = (DNode *) malloc (sizeof (*np));
 		if (np == NULL)
 			return NULL;
 		np->key = copystr (key);
-		VNode *new_val = (VNode *) malloc (sizeof (VNode));		
+		VNode *new_val = (VNode *) malloc (sizeof (VNode));
 		new_val->value = copystr (value);
 		new_val->next = NULL;
-		
+
 		np->values = new_val;
-		
+
 		hashval = hash (key) % hash_size;
 		//now links itself on top of array entry
 		np->next = dictionary [hashval];
@@ -51,8 +60,8 @@ DNode * set (DNode ** dictionary, int hash_size,  const char * key, const char *
 		VNode *new_val = (VNode *) malloc (sizeof (VNode));
 		new_val->value = copystr (value);
 		new_val->next = np->values;
-		np->values = new_val;		
-	}	
+		np->values = new_val;
+	}
 	return np;
 }
 
@@ -61,7 +70,7 @@ void free_value_list(VNode ** head){
 	while (current != NULL) {
 		VNode * temp = current;
 		current = current->next;
-		
+
 		if (temp->value !=NULL){
 			free (temp->value);
 			temp->value = NULL;
@@ -85,22 +94,22 @@ void free_dictionary (DNode ** dictionary, int hash_size) {
                     free (temp->key);
 					temp->key = NULL;
 				}
-				
+
 				free_value_list(&(temp->values));
-				
+
 				free (temp);
 				temp = NULL;
 			}
-			dictionary[i] = NULL; 
+			dictionary[i] = NULL;
 		}
-	}	 
+	}
 }
 
 char *copystr(const char *s) { /* make a duplicate of s */
 	char *p;
 	int len = strlen(s);
 
-	p = (char *) malloc(len+1); /* +1 for ’\0’ */
+	p = (char *) malloc(len+1); /* +1 for ï¿½\0ï¿½ */
 	if (p != NULL)
 		strncpy(p, s, len);
 	p[len] = '\0';

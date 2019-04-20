@@ -29,4 +29,8 @@ DNode * set (DNode ** dictionary, int hash_size, const char * key, const char * 
 
 void free_dictionary (DNode ** dictionary, int hash_size);
 
+int compare(const void*a, const void*b);
+
+void print_value(VNode** head);
+
 #endif

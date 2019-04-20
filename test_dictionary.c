@@ -13,17 +13,17 @@ void print_list(VNode *head){
 }
 
 int main (int argc, char ** argv) {
-	
+
 	DNode* result;
-	
+
 	//either static or use calloc - to set all bytes initially to 0
-	static DNode* dictionary [DEFAULT_HASH_SIZE]; 
-	
-	
+	static DNode* dictionary [DEFAULT_HASH_SIZE];
+
+
 	set(dictionary, DEFAULT_HASH_SIZE, "pore", "repo");
 	set(dictionary, DEFAULT_HASH_SIZE, "pore", "rope");
-	
-	
+
+
 	result = get (dictionary, DEFAULT_HASH_SIZE, "pore");
 	if (result != NULL) {
 		printf("Anagrams for 'pore':\n");
@@ -31,7 +31,7 @@ int main (int argc, char ** argv) {
 	}
 	else
 		printf ("'pore' not found\n");
-	
+
 	set(dictionary, DEFAULT_HASH_SIZE, "bore", "robe");
 	result = get (dictionary, DEFAULT_HASH_SIZE, "bore");
 	if (result != NULL) {
@@ -40,9 +40,9 @@ int main (int argc, char ** argv) {
 	}
 	else
 		printf ("'bore' not found\n");
-	
+
 	free_dictionary(dictionary, DEFAULT_HASH_SIZE);
 
-	
+
 	return 0;
 }
